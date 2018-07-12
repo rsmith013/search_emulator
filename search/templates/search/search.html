@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    {% load static %}
+
+    <title>Search Catalogue</title>
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: #08618b;">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'search/img/logo.png' %}" height="80" alt="">
+    </a>
+</nav>
+<div class="container">
+
+    <h1 class="mb-4 mt-4">Catalogue Search</h1>
+
+    <form method="get" action="{% url 'home' %}">
+        <div class="input-group input-group-lg mb-4">
+            <input name="q" type="text" class="form-control" placeholder="Input search terms..." aria-label="Search"
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="search">
+            </div>
+        </div>
+    </form>
+
+    {% if records %}
+        <div>
+            <h4>Total Results: {{ count }}</h4>
+            <hr>
+            <div class="row">
+
+
+                <div class="col-8">
+
+                    {% for record in records %}
+                        <div class="media">
+                            <img class="mr-3" src="{% static 'search/img/ceda_globe_watermark.png' %}"
+                                 alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a
+                                        href="http://catalogue-test.ceda.ac.uk/uuid/{{ record.uuid }}">{{ record.title | title }}</a>
+                                </h5>
+                            </div>
+                        </div>
+                        <hr class="mb-3">
+
+                    {% endfor %}
+                </div>
+
+                <div class="col-4" style="border-color: #003366; border-width: medium; border-style: solid">
+                    <h4 class="mt-3">Suggested Results:</h4>
+                    <hr class="mb-3">
+
+                    {% for record in suggested_results %}
+                        <div class="media">
+                            <img class="mr-3" src="{% static 'search/img/ceda_globe_watermark.png' %}"
+                                 alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a
+                                        href="http://catalogue-test.ceda.ac.uk/uuid/{{ record.uuid }}">{{ record.title | title }} <span class="badge badge-primary">{{ record.probability }}%</span></a>
+                                </h5>
+                            </div>
+                        </div>
+                        <hr class="mb-3">
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+
+    {% else %}
+        <div>
+            <h4>No results</h4>
+        </div>
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
+</div>
+</body>
+</html>
