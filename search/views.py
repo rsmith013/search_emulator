@@ -7,10 +7,11 @@ from sklearn.externals import joblib
 import json
 import os
 import numpy as n
+from catalogue_sim.settings import BASE_DIR
 
 es = Elasticsearch([{"host": "jasmin-es1.ceda.ac.uk", "port": 9000}])
-model_file = os.path.join("C:\\", "Users", "viscen013", "search_emulator", "search", "model.json")
-terms_file = os.path.join("C:\\", "Users", "viscen013", "search_emulator", "search", "learning_terms.json")
+model_file = os.path.join(BASE_DIR, "search", "model.json")
+terms_file = os.path.join(BASE_DIR, "search", "learning_terms.json")
 
 with open(terms_file) as input:
     terms_data = json.load(input)
